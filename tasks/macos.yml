@@ -1,0 +1,30 @@
+---
+- name: Set up MacOS
+  tags: macos
+  block:
+    - name: Set dock orientation
+      ansible.builtin.command: defaults write com.apple.dock "orientation" -string "left"
+
+    - name: Set dock size
+      ansible.builtin.command: defaults write com.apple.dock "tilesize" -int "48"
+
+    - name: Set dock magnification size
+      ansible.builtin.command: defaults write com.apple.dock "largesize" -int "64"
+
+    - name: Set dock autohide
+      ansible.builtin.command: defaults write com.apple.dock "autohide" -bool "true"
+
+    - name: Set dock hide recents
+      ansible.builtin.command: defaults write com.apple.dock "show-recents" -bool "false"
+
+    - name: Set dock don't rearrange spaces
+      ansible.builtin.command: defaults write com.apple.dock "mru-spaces" -bool "false"
+
+    - name: Restart dock
+      ansible.builtin.command: killall Dock
+
+    - name: Set screenshot location
+      ansible.builtin.command: defaults write com.apple.screencapture "location" -string "~/screenshots"
+
+    - name: Restart SystemUIServer
+      ansible.builtin.command: killall SystemUIServer

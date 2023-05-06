@@ -1,0 +1,11 @@
+---
+- name: Set up Node.js
+  tags: node
+  block:
+    - name: Install nvm
+      community.general.homebrew:
+        name: nvm
+        state: present
+
+    - name: Set default Node version to v18
+      ansible.builtin.shell: nvm alias default 18

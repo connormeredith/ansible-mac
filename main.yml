@@ -1,0 +1,20 @@
+---
+- hosts: all
+  name: Set up MacOS
+
+  tasks:
+    - name: Set up MacOS
+      ansible.builtin.include_tasks: ./tasks/macos.yml
+      tags: macos
+
+    - name: Set up core
+      ansible.builtin.include_tasks: ./tasks/core.yml
+      tags: core
+
+    - name: Set up dotfiles
+      ansible.builtin.include_tasks: ./tasks/dotfiles.yml
+      tags: dotfiles
+
+    - name: Set up Node.js
+      ansible.builtin.include_tasks: ./tasks/node.yml
+      tags: node

@@ -1,0 +1,33 @@
+---
+- name: Set up core
+  tags: core
+  block:
+    # - name: Check for command line tools
+    #   ansible.builtin.command: xcode-select --install
+    #   failed_when: true
+    #   changed_when: true
+    #   register: command_line_tools_check
+    #
+    # - name: Install command line tools
+    #   ansible.builtin.shell:
+    #   when: command_line_tools_check.rc == 1
+
+    - name: Check for brew
+      ansible.builtin.command: which brew
+      failed_when: false
+      changed_when: false
+      register: brew_check
+
+    - name: Install brew
+      become: true
+      ansible.builtin.shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      when: brew_check.rc == 1
+
+    - name: Install packages
+      community.general.homebrew:
+        name:
+          - fzf
+          - git
+          - neovim
+          - tmux
+        state: present
